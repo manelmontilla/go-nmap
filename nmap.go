@@ -23,11 +23,12 @@ func (t *Timestamp) str2time(s string) (err error) {
 // time2str formats the time.Time value as a UNIX timestamp string.
 // XXX these might also need to be changed to pointers. See str2time and UnmarshalXMLAttr.
 func (t Timestamp) time2str() string {
-	return fmt.Sprint(time.Time(t))
+	return fmt.Sprint(time.Time(t).Unix())
 }
 
 func (t Timestamp) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf("\"%s\"", t.time2str())), nil
+	content := t.time2str()
+	return []byte(content), nil
 }
 
 func (t Timestamp) UnmarshalJSON(b []byte) error {
